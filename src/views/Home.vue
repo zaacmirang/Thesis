@@ -235,7 +235,7 @@
                   >
                  </v-text-field>
                  <v-select                       
-                    v-model="select"
+                    v-model="clinicBranch"
                           :items="branch"
                           label= "Clinic Branch"
                           single-line
@@ -244,13 +244,13 @@
                     </v-select>
               
                     <v-select 
-                          v-model="select"
+                          v-model="Doctors"
                           :items="items"
                           label= "Doctors"
                     >
                     </v-select>
                     <v-select   
-                          v-model="select"
+                          v-model="procedures"
                           :items="procedures"
                           label= "Procedures"
                           single-line
@@ -258,12 +258,13 @@
                     >
                     </v-select>
                     <v-menu 
-                        v-model="menu1"
+                        v-model="datepick"
                         :close-on-content-click="false"
                          min-width="100"
                 >
                 <template v-slot:activator="{ on, attrs }">
                     <v-text-field 
+                          v-model="date"
                           :value="PickDate"
                           label="Date"
                           v-bind="attrs"
@@ -274,7 +275,6 @@
 
                       <v-date-picker
                            v-model="date"
-                           @change="menu1 = false"
                            ></v-date-picker>
                       </v-menu>
 
@@ -283,7 +283,6 @@
                           v-model="menu2"
                           :close-on-content-click="false"
                           :nudge-right="40"
-                          :return-value.sync="time"
                           transition="scale-transition"
                           offset-y
                           max-width="290px"
@@ -299,15 +298,16 @@
                         ></v-text-field>
                    </template>
                    <v-time-picker
-                           v-model="date"
-                           @change="menu1 = false"
-                           ></v-time-picker>
+                           v-model="time"
+                    ></v-time-picker>
+
                     </v-menu>
                         <v-btn
                            elevation="2"
                            outlined
                            color="green"
-                           @click="alert"
+                           @click="addBook"
+                           
                         >Book Now</v-btn>
 <br>
 <br>
@@ -331,12 +331,13 @@ export default {
   components: {
     Navbar
   },
+  
  
  methods: {
-       alert(){
+      addBook: function(){
         alert(' Wait for the confirmation message through SMS')
+        console.log (this.bookingdata)
       }
-
   },
   
 
@@ -345,12 +346,22 @@ export default {
         select: '',
         items: ['Doctor Razel Len Roldan','Doctor Mylor Guttierez','Doctor Trixia Mae Cervantes'],
         procedures:['Consultation','Oral Prophylaxis','Flouride Treatment','Pit & Fissure Sealant','Composite Restoration (pre-surface)','Tooth Extraction','Sprcial Surgery','Root Canal Treatment','Periodontal Treatment','Radiograp','Veneers','Mouth Guard','Dental Crown','RPD (per Arch)','Complete Dentures','Retainer','Orthdontic Treatment','Whitening'],
-        branch:['Pembo, Makati', 'Pateros']
-      }
-  },
-  
-}
+        branch:['Pembo, Makati', 'Pateros'],
 
+        bookingdata: {
+            fname: '',
+            lname: '',
+            email: '',
+            contacts: '',
+            clinicBranch: '',
+            Doctors: '',
+            procedures: '',
+            date :'',
+            time: '',
+         }     
+      }
+    }
+  }
 
 </script>
 <style scoped>
