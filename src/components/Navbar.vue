@@ -16,24 +16,7 @@
           gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"
         ></v-img>
       </template>
-
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
       <v-toolbar-title>Doc. Razel</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
 
       <template v-slot:extension>
         <v-tabs align-with-title>
@@ -45,21 +28,46 @@
         </v-tabs>
       </template>
     </v-app-bar>
-    <v-sheet
-      id="scrolling-techniques-3"
-      class="overflow-y-auto"
-      max-height="400"
-    >
-      <v-container style="height: 1000px;">
-          
+   
+      <v-container style="height: 500px; mb: 10px"  >
+          <v-carousel>
+                  <v-carousel-item
+                        v-for="(item,i) in items"
+                        :key="i"
+                        :src="item.src"
+                        reverse-transition="fade-transition"
+                        transition="fade-transition"
+                  ></v-carousel-item>
+                    </v-carousel>
       </v-container>
-    </v-sheet>
   </v-card>
-  
     </div>
 </template>
+
+
+
 <script>
 export default {
+
+  el: '#app',
+  data () {
+    return {
+      items: [
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+        },
+      ],
+    }
+  },
     
 }
 </script>
