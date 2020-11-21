@@ -82,7 +82,7 @@
                               <v-img
                                  class="white--text align-end"
                                   height="200px"
-                                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                                src="procedures/oral-prophylaxis.png"
                               >
                               <v-card-title>Oral Prophelaxis</v-card-title>
                           </v-img>
@@ -336,6 +336,9 @@ export default {
  methods: {
       addBook: function(){
         alert(' Wait for the confirmation message through SMS')
+        this.fname = this.text,
+        this.lname = this.text,
+
         console.log (this.bookingdata)
       }
   },
