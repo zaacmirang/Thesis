@@ -254,6 +254,8 @@
                           :items="procedures"
                           label= "Procedures"
                           single-line
+                          item-text = "name"
+                          item-value = "id"
                           return-object>
                     >
                     </v-select>
@@ -324,6 +326,7 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import axios from "axios" 
 // @ is an alias to /src
 
 export default {
@@ -336,8 +339,12 @@ export default {
  methods: {
       addBook: function(){
         alert(' Wait for the confirmation message through SMS')
-        this.fname = this.text,
-        this.lname = this.text,
+        this.bookingdata.fname = this.text,
+        this.bookingdata.lname = this.text,
+        this.bookingdata.date = this.date,
+        this.bookingdata.time =this.time,
+        this.bookingdata.service =this.procedures
+
 
         console.log (this.bookingdata)
       }
@@ -348,7 +355,7 @@ export default {
       return{
         select: '',
         items: ['Doctor Razel Len Roldan','Doctor Mylor Guttierez','Doctor Trixia Mae Cervantes'],
-        procedures:['Consultation','Oral Prophylaxis','Flouride Treatment','Pit & Fissure Sealant','Composite Restoration (pre-surface)','Tooth Extraction','Sprcial Surgery','Root Canal Treatment','Periodontal Treatment','Radiograp','Veneers','Mouth Guard','Dental Crown','RPD (per Arch)','Complete Dentures','Retainer','Orthdontic Treatment','Whitening'],
+        procedures:[ ],
         branch:['Pembo, Makati', 'Pateros'],
 
         bookingdata: {
