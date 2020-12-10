@@ -101,10 +101,12 @@
                             <v-img
                                class="white--text align-end"
                                height="200px"
-                               src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                               src="procedures/flouride-Treatment.jpg"
                              >
                               <v-card-title>Flouride Treatment</v-card-title>
-                            </v-img>
+                            </v-img
+                        
+                            >
                               <v-card-text class="text--primary">
                                   <div>Is A young Doctor with 4 Years exprience in private clinics</div>
                                   <div>Graduated in Central Escolar University (CEU)</div>
@@ -123,7 +125,7 @@
                                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
                              >
                               <v-card-title>Fit & Fissure Sealant </v-card-title>
-                            </v-img>
+                            </v-img >
                               <v-card-text class="text--primary">
                                   <div>Is A young Doctor with 4 Years exprience in private clinics</div>
                                   <div>Graduated in Central Escolar University (CEU)</div>
@@ -338,13 +340,13 @@ export default {
  
  methods: {
       addBook: function(){
-        alert(' Wait for the confirmation message through SMS')
+        axios.get
         this.bookingdata.fname = this.text,
         this.bookingdata.lname = this.text,
         this.bookingdata.date = this.date,
         this.bookingdata.time =this.time,
         this.bookingdata.service =this.procedures
-
+        
 
         console.log (this.bookingdata)
       }
@@ -354,9 +356,9 @@ export default {
   data(){
       return{
         select: '',
-        items: ['Doctor Razel Len Roldan','Doctor Mylor Guttierez','Doctor Trixia Mae Cervantes'],
+        items: [ ],
         procedures:[ ],
-        branch:['Pembo, Makati', 'Pateros'],
+        branch:[ ],
 
         bookingdata: {
             fname: '',
