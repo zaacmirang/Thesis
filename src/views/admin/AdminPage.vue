@@ -18,7 +18,7 @@
                                  color="green"
                                 v-bind="attrs"
                                 v-on="on"
-                                >Add Doctor</v-btn>
+                                >Create Account</v-btn>
                         </template>
                                 <v-card>
                                         <v-card-title><span class="headline">Add Doctor</span></v-card-title>

@@ -84,11 +84,12 @@
                                   height="200px"
                                 src="procedures/oral-prophylaxis.png"
                               >
-                              <v-card-title>Oral Prophelaxis</v-card-title>
+                              <v-card-title>Oral Prophylaxis</v-card-title>
                           </v-img>
                               <v-card-text class="text--primary">
-                                  <div>Is A young Doctor with 4 Years exprience in private clinics</div>
-                                  <div>Graduated in Central Escolar University (CEU)</div>
+                                  <p>
+                                    <b>Oral Prophylaxis</b> is a procedure done for teeth cleaning. It removes tartar and plaque build-up from the surfaces of the teeth
+                                  </p>
                               </v-card-text>
                       </v-card>
                      </v-col>
@@ -108,8 +109,7 @@
                         
                             >
                               <v-card-text class="text--primary">
-                                  <div>Is A young Doctor with 4 Years exprience in private clinics</div>
-                                  <div>Graduated in Central Escolar University (CEU)</div>
+                                  <p><b>Fluoride varnish</b> is a highly concentrated form of fluoride which is applied to the tooth's surface, by a dentist.</p>
                               </v-card-text>
                       </v-card>
               </v-col>
@@ -122,13 +122,12 @@
                             <v-img
                                class="white--text align-end"
                                height="200px"
-                               src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                               src="procedures/pit&fissure.jpg"
                              >
-                              <v-card-title>Fit & Fissure Sealant </v-card-title>
+                              <v-card-title>Pit & Fissure Sealant </v-card-title>
                             </v-img >
                               <v-card-text class="text--primary">
-                                  <div>Is A young Doctor with 4 Years exprience in private clinics</div>
-                                  <div>Graduated in Central Escolar University (CEU)</div>
+                                  <p>A <b>Pit</b> is a small depression on the surface of the tooth, whereas <b>Fissures</b> are the grooves that naturally occur on all biting surfaces of teeth.</p>
                               </v-card-text>
                       </v-card>
                     </v-col>
@@ -141,13 +140,12 @@
                               <v-img
                                  class="white--text align-end"
                                   height="200px"
-                                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                                src="procedures/composite-restoration.jpg"
                               >
                               <v-card-title>Composite Restoration</v-card-title>
                           </v-img>
                               <v-card-text class="text--primary">
-                                  <div>Is A young Doctor with 4 Years exprience in private clinics</div>
-                                  <div>Graduated in Central Escolar University (CEU)</div>
+                                  <p>A <b>Composite Filling</b> is a tooth-colored plastic and glass mixture used to restore decayed/carious teeth.</p>
                               </v-card-text>
                       </v-card>
                      </v-col>
@@ -160,13 +158,12 @@
                               <v-img
                                  class="white--text align-end"
                                   height="200px"
-                                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                                src="procedures/tooth-extraction.jpg"
                               >
                               <v-card-title>Tooth Extraction</v-card-title>
                           </v-img>
                               <v-card-text class="text--primary">
-                                  <div>Is A young Doctor with 4 Years exprience in private clinics</div>
-                                  <div>Graduated in Central Escolar University (CEU)</div>
+                                  <p>An <b>Extraction</b> means to have a tooth removed, usually because of disease, trauma or crowding.</p>
                               </v-card-text>
                       </v-card>
                      </v-col>
@@ -179,13 +176,12 @@
                               <v-img
                                  class="white--text align-end"
                                   height="200px"
-                                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                                src="procedures/root-canal.jpg"
                               >
-                              <v-card-title>Special Surgery</v-card-title>
+                              <v-card-title>Root Canal</v-card-title>
                           </v-img>
                               <v-card-text class="text--primary">
-                                  <div>Is A young Doctor with 4 Years exprience in private clinics</div>
-                                  <div>Graduated in Central Escolar University (CEU)</div>
+                                 <p>A <b>Root Canal </b> is a dental procedure involving the removal of the soft center of the tooth, the pulp. </p>
                               </v-card-text>
                       </v-card>
                      </v-col>
@@ -252,13 +248,12 @@
                     >
                     </v-select>
                     <v-select   
-                          v-model="procedures"
-                          :items="procedures"
+                          v-model="selectedServices"
+                          :items="services"
                           label= "Procedures"
-                          single-line
                           item-text = "name"
                           item-value = "id"
-                          return-object>
+                          >
                     >
                     </v-select>
                     <v-menu 
@@ -345,20 +340,29 @@ export default {
         this.bookingdata.lname = this.text,
         this.bookingdata.date = this.date,
         this.bookingdata.time =this.time,
-        this.bookingdata.service =this.procedures
+        this.bookingdata.services =this.procedures
         
 
         console.log (this.bookingdata)
       }
+
+      ,service() {
+        axios.get ('http://localhost/Dentalthesis/public/api/Services')
+        .then((response) => { this.services = response.data.data});
+      }
   },
-  
+
+  created(){
+      this.service();
+  },
 
   data(){
       return{
         select: '',
         items: [ ],
-        procedures:[ ],
+        services:[{}],
         branch:[ ],
+        selectedService: "",
 
         bookingdata: {
             fname: '',
