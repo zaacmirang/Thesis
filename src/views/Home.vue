@@ -350,7 +350,15 @@ export default {
         axios.get ('http://localhost/Dentalthesis/public/api/Services')
         .then((response) => { this.services = response.data.data});
       }
-  },
+  }
+      ,doctors() {
+        axios.get ('http://localhost/Dentalthesis/public/api/Doctors')
+        .then((response) => { this.doctors = response.data.data});
+      },
+       position() {
+        axios.get ('http://localhost/Dentalthesis/public/api/Position')
+        .then((response) => { this.position = response.data.data});
+      },
 
   created(){
       this.service();
