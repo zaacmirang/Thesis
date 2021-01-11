@@ -4,8 +4,7 @@
     <v-main
       class="p-0"
     >
-   <router-view></router-view>
-      
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
