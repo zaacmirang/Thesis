@@ -1,10 +1,5 @@
 <template>
-        <div>
-               <v-avatar size="80" color="green" >
-                       <img
-                                src=""
-                       >
-               </v-avatar> 
+        <div> 
                       <v-row justify="end">   
                          <v-dialog
                                 v-model="dialog"
@@ -12,6 +7,7 @@
                                 max-width="700px"
                         >
                         <template v-slot:activator="{ on, attrs}">
+            <!-- Start of Add account -->
                            <v-btn
                                  elevation="2"
                                  outlined
@@ -21,7 +17,7 @@
                                 >Create Account</v-btn>
                         </template>
                                 <v-card>
-                                        <v-card-title><span class="headline">Add Doctor</span></v-card-title>
+                                        <v-card-title><span class="headline">Registration Form</span></v-card-title>
                                  <v-card-text>
                                         <v-container>
                                                 <v-row>
@@ -31,19 +27,22 @@
                                                                 md="4"
                                                          >
                                                           <v-text-field
+                                                                v-model="accfname"
                                                                 label="First Name"
-                                                                required
+                                                                value="first name"
+                                                                
                                                            ></v-text-field>
                                                          </v-col>
-                                                        
+                        
                                                         <v-col
                                                                 cols="12"
                                                                 sm="6"
                                                                 md="4"
                                                         >
-                  
                                                         <v-text-field
+                                                                v-model="acclname"
                                                                 label="Last Name"
+                                                                value="last name"
                                                                 hint="example of helper text only on focus"
                                                          ></v-text-field>
                                                         </v-col>
@@ -55,77 +54,91 @@
                                                         >
                   
                                                         <v-text-field
+                                                                v-model="accmname"
                                                                 label="Middle Name"
-                                                                hint="example of persistent helper text"
-                                                                persistent-hint
-                                                                required
+                                                                value="middle name"
+                                                             
                                                         ></v-text-field>
                                                         </v-col>
                     
                                                         <v-col cols="12">
                                                         <v-text-field
+                                                                v-model="accschoolname"
                                                                 label="Name of School"
-                                                                required
+                                                                value="Name of School"
+                                                                
                                                         ></v-text-field>
                                                         </v-col>
             
                                                         <v-col cols="12">
                                                         <v-text-field
+                                                                v-model="accemail"
                                                                 label="Email"
-                                                                required
+                                                                value="email"
+                                                             
                                                         ></v-text-field>
                                                         </v-col>
 
                                                         <v-col cols="12">
                                                         <v-text-field
+                                                                v-model="accusername"
                                                                 label="Account Username"
-                                                                required
+                                                                value="account username"
+                                                             
                                                         ></v-text-field>
                                                         </v-col>
               
                                                         <v-col cols="12">
                                                         <v-text-field
-                                                                label="Password*"
+                                                                v-model="accpass"
+                                                                label="Password"
+                                                                value="password"
                                                                 type="password"
-                                                                required
+                                                               
                                                         ></v-text-field>
                                                         </v-col>
                  
                                                         <v-col cols="12">
                                                         <v-text-field
-                                                                label="Confirm Password*"
+                                                                v-model="accconpassw"
+                                                                label="Confirm Password"
+                                                                value="confirm password"
                                                                 type="password"
-                                                                required
+                                                                
                                                         ></v-text-field>
                                                         </v-col>
                
                 
                                                 </v-row>
                                         </v-container>
-                                                         <small>*indicates required field</small>
-                                                </v-card-text>
+                                                <small>*indicates required field</small>
+                                </v-card-text>
                                                  <v-card-actions>
                                                         <v-spacer></v-spacer>
-                                                        <v-btn
+                                                                <v-btn
                                                                 color="red outlined-1"
                                                                 text
                                                                 @click="dialog = false"
-                                                        >
-                                                        Close
-                                                        </v-btn>
+                                                                >
+                                                                Close
+                                                                </v-btn>
             
-                                                        <v-btn
+                                                                <v-btn
                                                                 color="green outlined-1"
                                                                 text
-                                                                @click="dialog = false"
-                                                        >
-                                                        Save
-                                                        </v-btn>
-                                                </v-card-actions>
+                                                                @click="postaddaccount"
+                                                                >
+                                                                Save
+                                                                </v-btn>
+                                                        </v-card-actions>
                                         </v-card>
-                                                </v-dialog>
-                                                </v-row>
-<br>
+                                </v-dialog>
+                           </v-row>
+                           <br>
+                <!-- 
+                end of add User
+                start of add patient 
+                -->
                                          <v-row justify="end">   
                                                 <v-dialog
                                                         v-model="dialog"
@@ -152,8 +165,10 @@
                                                                 md="4"
                                                          >
                                                           <v-text-field
+                                                                v-model="pxfname"
                                                                 label="First Name"
-                                                                required
+                                                                value="px fname"
+                                                               
                                                            ></v-text-field>
                                                          </v-col>
                                                         
@@ -163,7 +178,9 @@
                                                                 md="4"
                                                         >
                                                         <v-text-field
+                                                                v-model="pxlname"
                                                                 label="Last Name"
+                                                                value="px lname"
                                                          ></v-text-field>
                                                         </v-col>
                 
@@ -174,9 +191,10 @@
                                                         >
                   
                                                         <v-text-field
+                                                                v-model="pxmname"
                                                                 label="Middle Name"
-                                                                persistent-hint
-                                                                required
+                                                                value="pxmname"
+                                                               
                                                         ></v-text-field>
                                                         </v-col>
 
@@ -188,9 +206,10 @@
                                                         >
                   
                                                         <v-text-field
+                                                                v-model="pxage"
                                                                 label="Age"
-                                                                persistent-hint
-                                                                required
+                                                                value="px age"
+                                                              
                                                         ></v-text-field>
                                                         </v-col>
                                                         <v-col
@@ -200,9 +219,10 @@
                                                         >
                   
                                                         <v-text-field
+                                                                v-model="pxnationality"
                                                                 label="Nationality"
-                                                                persistent-hint
-                                                                required
+                                                                zvalue="px nationality"
+                                                           
                                                         ></v-text-field>
                                                         </v-col>
 
@@ -213,8 +233,10 @@
                                                         >
                   
                                                         <v-text-field
+                                                                v-model="pxcontact"
                                                                 label="Contact Number"
-                                                                required
+                                                                value="px contact"
+                                                         
                                                                 placeholder="+63"
                                                         ></v-text-field>
                                                         </v-col>
@@ -226,15 +248,19 @@
                                                         >
                   
                                                         <v-text-field
+                                                                v-model="pxstatus"
                                                                 label="Status"
-                                                                required
+                                                                value="pxstatus"
+                                                            
                                                         ></v-text-field>
                                                         </v-col>
 
                                                         <v-col cols="12">
                                                         <v-text-field
+                                                                v-model="pxadd"
                                                                 label="Address"
-                                                                required
+                                                                value="px add"
+                                                            
                                                         ></v-text-field>
                                                         </v-col>
             
@@ -242,22 +268,28 @@
                                                         
                                                         <v-col cols="12">
                                                         <v-text-field
+                                                                v-model="pxguardname"
                                                                 label="Name of Guardian"
-                                                                required
+                                                                value="px guardname"
+                                                            
                                                         ></v-text-field>
                                                         </v-col>
 
                                                         <v-col cols="12">
                                                         <v-text-field
+                                                                v-model="pxrelation"
                                                                 label="Ralation"
-                                                                required
+                                                                value="px relation"
+                                                              
                                                         ></v-text-field>
                                                         </v-col>
 
                                                         <v-col cols="12">
                                                         <v-text-field
+                                                                v-model="pxoccupation"
                                                                 label="Occupation"
-                                                                required
+                                                                value="px occupation"
+                                                               
                                                         ></v-text-field>
                                                         </v-col>
 
@@ -267,15 +299,19 @@
                                                          cols="12"
                                                         >
                                                         <v-text-field
+                                                                v-model="pxphysician"
                                                                 label="Name of Physician"
-                                                                required
+                                                                value="px physician"
+                                                              
                                                         ></v-text-field>
                                                         </v-col>
 
                                                          <v-col cols="12">
                                                         <v-text-field
+                                                                v-model="pxclinicadd"
                                                                 label="Clinic Address"
-                                                                required
+                                                                value="px clinicadd"
+                                                              
                                                         ></v-text-field>
                                                         </v-col>
 
@@ -283,136 +319,107 @@
                                                               1.   Have you been a patient in Hospital for last 2 years?
                                                         </p>
                                                         
-                                                        <v-checkbox
-                                                                label="yes"
-                                                                color="orange"
-                                                                value="yes"
-                                                                hide-details
-                                                        ></v-checkbox>
-                                                        <v-checkbox
-                                                                label="No"
-                                                                color="orange"
-                                                                value="No"
-                                                                hide-details
-                                                        ></v-checkbox>
+                                                        <v-radio
+                                                                :label="`yes`"
+                                                                :value="yes"
+                                                        ></v-radio>     
+                                                        <v-radio                                                      
+                                                                :label="`no`"
+                                                                :value="no"
+                                                        ></v-radio>
+
 
                                                         <p class="font-weight-regular">
                                                                2.  Have you been under the care of a physician during the past 2 yrs? 
                                                         </p>
 
-                                                        <v-checkbox
+                                                        <v-radio
                                                                 label="yes"
-                                                                color="orange"
                                                                 value="yes"
-                                                                hide-details
-                                                        ></v-checkbox>
-                                                        <v-checkbox
+                                                        ></v-radio>
+                                                        <v-radio
                                                                 label="No"
-                                                                color="orange"
                                                                 value="No"
-                                                                hide-details
-                                                        ></v-checkbox>
+                                                        ></v-radio>
 
                                                         <p class="font-weight-regular">
                                                                3.  Have you ever had serious illness or surgical operation?
                                                         </p>
 
-                                                        <v-checkbox
+                                                        <v-radio
                                                                 label="yes"
-                                                                color="orange"
                                                                 value="yes"
-                                                                hide-details
-                                                        ></v-checkbox>
-                                                        <v-checkbox
-                                                                label="No"
-                                                                color="orange"
+                                                        ></v-radio>
+                                                        <v-radio
+                                                                label="No"      
                                                                 value="No"
-                                                                hide-details
-                                                        ></v-checkbox>
+                                                        ></v-radio>
 
                                                         <p class="font-weight-regular">
                                                                4.  Have you ever been hospitalized? 
                                                         </p>
 
-                                                        <v-checkbox
-                                                                label="yes"
-                                                                color="orange"
+                                                        <v-radio
+                                                                label="yes"        
                                                                 value="yes"
-                                                                hide-details
-                                                        ></v-checkbox>
-                                                        <v-checkbox
+                                                        ></v-radio>
+                                                        <v-radio
                                                                 label="No"
-                                                                color="orange"
                                                                 value="No"
-                                                                hide-details
-                                                        ></v-checkbox>
+                                                        ></v-radio>
 
                                                          <p class="font-weight-regular">
                                                                5.  Are you taking any kind of medicine during the past year?	 
                                                         </p>
 
-                                                        <v-checkbox
+                                                        <v-radio
                                                                 label="yes"
-                                                                color="orange"
                                                                 value="yes"
-                                                                hide-details
-                                                        ></v-checkbox>
-                                                        <v-checkbox
+                                                        ></v-radio>
+                                                        <v-radio
                                                                 label="No"
-                                                                color="orange"
                                                                 value="No"
-                                                                hide-details
-                                                        ></v-checkbox>
+                                                        ></v-radio>
 
                                                          <p class="font-weight-regular">
                                                                6.  Have you ever had excessive bleeding requiring special treatment?		 
                                                         </p>
                                                         
-                                                        <v-checkbox
+                                                        <v-radio
                                                                 label="yes"
-                                                                color="orange"
                                                                 value="yes"
-                                                                hide-details
-                                                        ></v-checkbox>
-                                                        <v-checkbox
+                                                        ></v-radio>
+                                                        <v-radio
                                                                 label="No"
-                                                                color="orange"
                                                                 value="No"
-                                                                hide-details
-                                                        ></v-checkbox>
+                                                        ></v-radio>
 
                                                          <p class="font-weight-regular">
                                                                7.  Do you use alcohol, cocaine or other dangerous drugs?		 
                                                         </p>
 
-                                                        <v-checkbox
+                                                        <v-radio
                                                                 label="yes"
-                                                                color="orange"
                                                                 value="yes"
-                                                                hide-details
-                                                        ></v-checkbox>
-                                                        <v-checkbox
+                                                        ></v-radio>
+                                                        <v-radio        
                                                                 label="No"
-                                                                color="orange"
                                                                 value="No"
-                                                                hide-details
-                                                        ></v-checkbox>
+                                                        ></v-radio>
 
                                                         <p class="font-weight-regular">
                                                                8.  Are you allergic to any of the following :		 
                                                         </p>
-                                                        <v-checkbox
+                                                        <v-radio
                                                                 label="yes"
-                                                                color="orange"
                                                                 value="yes"
-                                                                hide-details
-                                                        ></v-checkbox>
-                                                        <v-checkbox
+                                                        ></v-radio>
+                                                        <v-radio
                                                                 label="No"
                                                                 color="orange"
                                                                 value="No"
                                                                 hide-details
-                                                        ></v-checkbox>
+                                                        ></v-radio>
                                                         
                                                 </v-row>
                                         </v-container>
@@ -452,7 +459,15 @@
                                                                         <v-tab>Doctors Record</v-tab>
                                                                         <v-tab>Schedules</v-tab>
                                                                         <v-tab>Appointment Request</v-tab>
-                                                                        </v-tabs>
+                                                                        
+                                                        </v-tabs>
+                                                                             <v-data-table
+                                                                                 :headers="headers"
+                                                                                 :items="appointments"
+                                                                                 :items-per-page="5"
+                                                                                 class="elevation-1"
+                                                                            ></v-data-table>
+                                                                        
                                                         </v-card>
 
                         
@@ -467,9 +482,121 @@
 
 </template>
 <script>
+import axios from "axios" 
 export default {
-    
-}
+        data(){
+             return {
+                       headers: [
+                                {
+                                 text: 'First Name',
+                                 align: 'start',
+                                sortable: false,
+                                value: 'fname',
+                                },
+                                { text: 'Last Name', value: 'lname' },
+                                { text: 'Email', value: 'email' },
+                                { text: 'Contact Number', value: 'contact' },
+                                { text: 'Branch', value: 'branch' },
+                                { text: 'Doctor', value: 'doctor' },
+                                { text: 'Procedure', value: 'procedure' },
+                                { text: 'Date', value: 'date' },
+                                { text: 'Time', value: 'time' },
+                        ],
+                        
+                 topassacount: {
+                         accfname: " ",
+                         acclname: " ",
+                         accmname: " ",
+                         accschoolname:" ",
+                         accemail: " ",
+                         accusername: " ",
+                         accpass: " ",
+                         accconpass: " "
+                 }
+                 ,topasspatientinfo: {
+                        pxfname: " ",
+                        pxlname: " ",
+                        pxmname: " ",
+                        pxage: " ",
+                        pxnationality: " ",
+                        pxcontact: " ",
+                        pxstatus: " ",
+                        pxadd: " ",
+                        pxguardname: " ",
+                        pxrelation: " ",
+                        pxoccupation: " ",
+                        pxphysician: " ",
+                        pxclinicadd: " "
+                 }
+                //  ,tofetchbookappointment: {
+                //         fname: " ",
+                //  }
+             }
+        },
+        mounted() {
+                console.log('Component mounted.')
+        }
+        ,methods: {
+               postaddaccount (){
+                       const data = {};
+                       data.accfname            = this.accfname;
+                       data.acclname            = this.acclname;
+                       data.accmname            = this.accmname;
+                       data.accschoolname       = this.accschoolname;
+                       data.email               = this.accemail;
+                       data.accusername         = this.accusername;
+                       data.accpass             = this. accpass;
+                       data.accconpass          = this. accconpass;
+
+                axios.post('http://localhost/Dentalthesis/public/api/registerUser', data)
+                .then(res => {console.log(res)
+                        
+                })
+                
+               }
+                
+            }
+            ,postaddpatient (){
+                    const addpx = {};
+                        addpx.pxfname = this.pxfname;
+                        addpx.pxlname = this.pxlname;
+                        addpx.pxmname = this.pxmname;
+                        addpx.pxage = this.pxage;
+                        addpx.pxnationality = this.pxnationality;
+                        addpx.pxcontact = this.pxcontact;
+                        addpx.pxstatus = this.pxstatus;
+                        addpx.pxadd = this.pxadd;
+                        addpx.pxguardname = this.pxguardname;
+                        addpx.pxrelation = this.pxrelation;
+                        addpx.pxoccupation = this.pxoccupation;
+                     axios.post ('http://localhost/Dentalthesis/public/api/Addpatient', addpx)
+                     .then(response => {console.log(response)}) 
+            }
+
+            ,postmedicalhistory (){
+                    
+                    axios.post ('http://localhost/Dentalthesis/public/api/Addpatient', this.topasspatientmedicalhistory)
+                     .then(response => {console.log(response)}) 
+            }
+
+
+            //get record
+            ,getpatientrecord () {
+                  axios.get('http://localhost/Dentalthesis/public/api/BookAppointment',this.bookingdata)
+                  .then((response) => {console.log(response.data)
+                  
+          })
+        }
+            
+            }
+        //     ,getappointmentrecord () {
+        //             axios.get ('')
+        //     }
+        //     ,getbookedappointment (){
+        //             axios.get ('')
+        //     }
+
+
 </script>
 <style lang="stylus" scoped>
 

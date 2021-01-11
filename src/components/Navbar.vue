@@ -48,8 +48,6 @@
 
 <script>
 export default {
-
-  el: '#app',
   data () {
     return {
       items: [

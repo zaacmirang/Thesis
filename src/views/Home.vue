@@ -125,30 +125,31 @@
                                src="procedures/pit&fissure.jpg"
                              >
                               <v-card-title>Pit & Fissure Sealant </v-card-title>
-                            </v-img >
-                              <v-card-text class="text--primary">
-                                  <p>A <b>Pit</b> is a small depression on the surface of the tooth, whereas <b>Fissures</b> are the grooves that naturally occur on all biting surfaces of teeth.</p>
+                                  </v-img >
+                                    <v-card-text class="text--primary">
+                                      <p>A <b>Pit</b> is a small depression on the surface of the tooth, whereas <b>Fissures</b> are the grooves that naturally occur on all biting surfaces of teeth.</p>
                               </v-card-text>
-                      </v-card>
-                    </v-col>
+                                </v-card>
+                      </v-col>
+                      
                        <v-col 
-                                cols="4"
-                            >
-                            <v-card 
-                                max-width="400"
-                            >
-                              <v-img
-                                 class="white--text align-end"
-                                  height="200px"
-                                src="procedures/composite-restoration.jpg"
-                              >
-                              <v-card-title>Composite Restoration</v-card-title>
-                          </v-img>
-                              <v-card-text class="text--primary">
-                                  <p>A <b>Composite Filling</b> is a tooth-colored plastic and glass mixture used to restore decayed/carious teeth.</p>
-                              </v-card-text>
-                      </v-card>
-                     </v-col>
+                          cols="4"
+                       >
+                          <v-card 
+                              max-width="400"
+                          >
+                          <v-img
+                              class="white--text align-end"
+                              height="200px"
+                              src="procedures/composite-restoration.jpg"
+                          >
+                          <v-card-title>Composite Restoration</v-card-title>
+                             </v-img>
+                                  <v-card-text class="text--primary">
+                                      <p>A <b>Composite Filling</b> is a tooth-colored plastic and glass mixture used to restore decayed/carious teeth.</p>
+                                  </v-card-text>
+                          </v-card>
+                        </v-col>
                         <v-col 
                                 cols="4"
                             >
@@ -194,91 +195,159 @@
     <v-container style="height: 750px">
            <h1>Book Now </h1>
 
-            <validation-observer
-                 ref="observer"
-                 
-            >
                 <v-form>
                   <v-text-field 
-                      v-model="fname"
+                      v-model="bookingdata.fname"
+                      value="fname"
                       :counter = "15"
                       :aria-errormessage="Error"
                       label = "First Name"
                       required
+                      :rules="[rules.required]"
+                      
                   >
                   </v-text-field>
 
                   <v-text-field 
-                      v-model="lname"
+
+                      v-model="bookingdata.lname"
+                      value="lname"
                       :counter = "15"
                       :aria-errormessage="Error"
                       label = "Last Name"
                       required
+                      :rules="[rules.required]"
+                     
                   >
                   </v-text-field> 
                   <v-text-field 
-                      v-model="email"
+                      v-model="bookingdata.email"
+                      value="email"
                       :counter = "30"
                       :aria-errormessage="Error"
                       label = "Email Address"
                       required
+                     :rules="[rules.required]"
+                      
                   >
                   </v-text-field>
                   <v-text-field 
-                      v-model="contact"
+
+                      v-model="bookingdata.contact"
+                      value="contact"
                       :counter = "15"
                       :aria-errormessage="Error"
                       label = "Contact Number"
                       required
+                      :rules="[rules.required]"
+                      
                   >
                  </v-text-field>
                  <v-select                       
-                    v-model="clinicBranch"
+                           v-model="bookingdata.branches_id"
                           :items="branch"
                           label= "Clinic Branch"
                           single-line
-                          return-object>
-                    >
-                    </v-select>
+                          item-text="name"
+                          item-value = "id"
+                          :rules="[rules.required]"
+                      >
+                  </v-select>
               
                     <v-select 
-                          v-model="Doctors"
-                          :items="items"
+                          v-model="bookingdata.doctors_id"
+                          :items="doctors"
                           label= "Doctors"
+                          item-text = "name"
+                          item-value = "id"
+                          :rules="[rules.required]"
                     >
                     </v-select>
                     <v-select   
-                          v-model="selectedServices"
+                          v-model="bookingdata.services_id"
                           :items="services"
                           label= "Procedures"
                           item-text = "name"
                           item-value = "id"
-                          >
+                          :rules="[rules.required]"
+                          
                     >
                     </v-select>
-                    <v-menu 
-                        v-model="datepick"
+                    <!-- <v-menu 
+                        v-model="date"
                         :close-on-content-click="false"
                          min-width="100"
+                         :rules="[rules.required]"
                 >
                 <template v-slot:activator="{ on, attrs }">
                     <v-text-field 
                           v-model="date"
-                          :value="PickDate"
+                          :value="Date"
                           label="Date"
                           v-bind="attrs"
                           v-on="on"
                           @click:clear="date = null"
+                          :rules="[rules.required]"
                     ></v-text-field>
                 </template>
 
                       <v-date-picker
                            v-model="date"
                            ></v-date-picker>
-                      </v-menu>
+                      </v-menu> -->
+                <v-menu
+                  v-model="menu1"
+                  transition="scale-transition"
+                  offset-y
+                  max-width="290px"
+                  min-width="auto"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="date"
+                      label="Date"
+                      v-bind="attrs"
+                      readonly
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker
+                    v-model="date"
+                    no-title
+                    @input="menu1 = false"
+                  ></v-date-picker>
+                </v-menu>
 
-                    <v-menu
-                          ref="menu"
+                <v-menu
+                  ref="menu"
+                  v-model="menu2"
+                  :close-on-content-click="false"
+                  :nudge-right="40"
+                  :return-value.sync="time"
+                  transition="scale-transition"
+                  offset-y
+                  max-width="290px"
+                  min-width="290px"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="time"
+                      label="Picker in menu"
+                      readonly
+                      v-bind="attrs"
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-time-picker
+                    v-if="menu2"
+                    v-model="time"
+                    full-width
+                    @click:minute="$refs.menu.save(time)"
+                  ></v-time-picker>
+                </v-menu>
+
+                    <!-- <v-menu
+                          ref="menu2"
                           v-model="menu2"
                           :close-on-content-click="false"
                           :nudge-right="40"
@@ -294,24 +363,24 @@
                               readonly
                               v-bind="attrs"
                               v-on="on"
+                              :rules="[rules.required]"
                         ></v-text-field>
                    </template>
                    <v-time-picker
                            v-model="time"
                     ></v-time-picker>
 
-                    </v-menu>
+                    </v-menu> -->
                         <v-btn
                            elevation="2"
                            outlined
                            color="green"
-                           @click="addBook"
-                           
+                           @click="booking"
                         >Book Now</v-btn>
+                      </v-form>
 <br>
 <br>
-                </v-form>
-            </validation-observer>
+            
         </v-container>
 
                           <v-container style="height: 300px">
@@ -324,67 +393,89 @@
 <script>
 import Navbar from '@/components/Navbar.vue'
 import axios from "axios" 
+
 // @ is an alias to /src
 
 export default {
-  name: 'Home',
-  components: {
-    Navbar
+    data:() => ({
+      select: '',
+        items: [ ],
+        services:[{}],
+        branch:[ ],
+        selectedService: " ",
+        Error: '',
+//      
+        menu2: false,
+        menu1: false,
+        time: '',
+        date: '',
+        doctors: [],
+        bookingdata: {
+            fname: ' ',
+            lname: ' ',
+            email: ' ',
+            contact: ' ',
+            branches_id: ' ',
+            doctors_id: ' ',
+            services_id: ' ',
+            date :' ',
+            time:    ' ',
+         },
+         rules: {
+           required: value => !!value || 'Required.',
+         }    
+    })
+  ,created(){
+      this.service();
+      this.doctor();
+      this.branches();
+  }
+    ,name: 'Home',
+    components: {
+    Navbar,
   },
   
  
  methods: {
-      addBook: function(){
-        axios.get
-        this.bookingdata.fname = this.text,
-        this.bookingdata.lname = this.text,
-        this.bookingdata.date = this.date,
-        this.bookingdata.time =this.time,
-        this.bookingdata.services =this.procedures
-        
-
-        console.log (this.bookingdata)
-      }
+   booking(){
+          // this.bookingdata.fname        = this.fname;
+          // this.bookingdata.lname        = this.lname;
+          // this.bookingdata.email        = this.email;
+          // this.bookingdata.contact      = this.contact;
+          // this.bookingdata.branches_id  = this.clinicBranch;
+          // this.bookingdata.doctors_id   = this.doctors;
+          // this.bookingdata.services_id  = this.selectedServices;  
+          // this.bookingdata.date         = this.date;
+          // this.bookingdata.time         = this.time;   
+          
+          axios.post('http://localhost/Dentalthesis/public/api/BookAppointment',this.bookingdata).then((response) => {
+            console.log(response.data)
+            alert('Your Schedule request Sent! Wait for the Clinic SMS Confirmation..')
+            
+          }).catch(e => {
+            console.log(e.message)
+          })
+        }
+        //     ,postsubmit(){
+        //       axios.post('http://localhost/Dentalthesis/public/api/BookAppointment', this.bookingdata)
+        //     .then(response => {console.log(response)})     
+        // }
 
       ,service() {
         axios.get ('http://localhost/Dentalthesis/public/api/Services')
         .then((response) => { this.services = response.data.data});
       }
-  }
-      ,doctors() {
+  
+      ,doctor() {
         axios.get ('http://localhost/Dentalthesis/public/api/Doctors')
-        .then((response) => { this.doctors = response.data.data});
-      },
-       position() {
-        axios.get ('http://localhost/Dentalthesis/public/api/Position')
-        .then((response) => { this.position = response.data.data});
-      },
-
-  created(){
-      this.service();
-  },
-
-  data(){
-      return{
-        select: '',
-        items: [ ],
-        services:[{}],
-        branch:[ ],
-        selectedService: "",
-
-        bookingdata: {
-            fname: '',
-            lname: '',
-            email: '',
-            contacts: '',
-            clinicBranch: '',
-            Doctors: '',
-            procedures: '',
-            date :'',
-            time: '',
-         }     
+        .then((response) => {this.doctors = response.data.data});
       }
-    }
+      ,branches() {
+        axios.get ('http://localhost/Dentalthesis/public/api/Branches')
+        .then((response) => { this.branch = response.data.data});
+      },
+    
+    },
   }
 
 </script>
