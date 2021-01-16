@@ -1,26 +1,25 @@
 <template>
-  <v-container style="height: 750px" class="mt-12">
+  <v-container >
     <h1>Book Now </h1>
 
-    <v-form>
+    <v-form
+        ref="form"
+        v-model="valid"
+        lazy-validation
+    >
         <v-text-field 
-            v-model="bookingdata.fname"
-            value="fname"
-            :counter = "15"
-            :aria-errormessage="Error"
-            label = "First Name"
-            required
+            v-model="fname"
             :rules="[rules.required]"
-            
+            required
+            label = "First Name"
         >
         </v-text-field>
 
         <v-text-field 
 
-            v-model="bookingdata.lname"
+            v-model="lname"
             value="lname"
             :counter = "15"
-            :aria-errormessage="Error"
             label = "Last Name"
             required
             :rules="[rules.required]"
@@ -29,10 +28,9 @@
         </v-text-field> 
 
         <v-text-field 
-            v-model="bookingdata.email"
+            v-model="email"
             value="email"
             :counter = "30"
-            :aria-errormessage="Error"
             label = "Email Address"
             required
             :rules="[rules.required]"
@@ -41,21 +39,19 @@
         </v-text-field>
 
         <v-text-field 
-            v-model="bookingdata.contact"
+            v-model="contact"
             value="contact"
             :counter = "15"
-            :aria-errormessage="Error"
+            :rules="[rules.required]"
             label = "Contact Number"
             required
-            :rules="[rules.required]"
         >
         </v-text-field>
 
         <v-select                       
-            v-model="bookingdata.branches_id"
+            v-model="branches_id"
             :items="branch"
             label= "Clinic Branch"
-            single-line
             item-text="name"
             item-value = "id"
             :rules="[rules.required]"
@@ -63,7 +59,7 @@
         </v-select>
     
         <v-select 
-            v-model="bookingdata.doctors_id"
+            v-model="doctors_id"
             :items="doctors"
             label= "Doctors"
             item-text = "name"
@@ -73,7 +69,7 @@
         </v-select>
 
         <v-select   
-            v-model="bookingdata.services_id"
+            v-model="services_id"
             :items="services"
             label= "Procedures"
             item-text = "name"
@@ -81,29 +77,6 @@
             :rules="[rules.required]"
         >
         </v-select>
-
-        <!-- <v-menu 
-            v-model="date"
-            :close-on-content-click="false"
-                min-width="100"
-                :rules="[rules.required]"
-        >
-        <template v-slot:activator="{ on, attrs }">
-            <v-text-field 
-                    v-model="date"
-                    :value="Date"
-                    label="Date"
-                    v-bind="attrs"
-                    v-on="on"
-                    @click:clear="date = null"
-                    :rules="[rules.required]"
-            ></v-text-field>
-        </template>
-
-        <v-date-picker
-            v-model="date"
-            ></v-date-picker>
-        </v-menu> -->
 
     <v-menu
         v-model="menu1"
@@ -119,6 +92,7 @@
             v-bind="attrs"
             readonly
             v-on="on"
+            :rules="[rules.required]"
         ></v-text-field>
         </template>
         <v-date-picker
@@ -146,6 +120,7 @@
             readonly
             v-bind="attrs"
             v-on="on"
+            :rules="[rules.required]"
         ></v-text-field>
         </template>
         <v-time-picker
@@ -155,32 +130,6 @@
         @click:minute="$refs.menu.save(time)"
         ></v-time-picker>
     </v-menu>
-
-        <!-- <v-menu
-                ref="menu2"
-                v-model="menu2"
-                :close-on-content-click="false"
-                :nudge-right="40"
-                transition="scale-transition"
-                offset-y
-                max-width="290px"
-                min-width="290px"
-        >
-        <template v-slot:activator="{ on, attrs }">
-            <v-text-field
-                    v-model="time"
-                    label="Select Time"
-                    readonly
-                    v-bind="attrs"
-                    v-on="on"
-                    :rules="[rules.required]"
-            ></v-text-field>
-        </template>
-        <v-time-picker
-                v-model="time"
-        ></v-time-picker>
-
-        </v-menu> -->
         <v-btn
             elevation="2"
             outlined
@@ -191,6 +140,18 @@
     <br>
     <br>
             
+    <v-dialog
+      v-model="bookingSuccessDialog"
+      width="500"
+    >
+
+      <v-card>
+        <v-card-text>
+         Your Schedule request Sent! Wait for the Clinic SMS Confirmation..
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
     </v-container>
 </template>
 
@@ -199,54 +160,86 @@ import axios from "axios"
 
 export default {
     data:() => ({
+        bookingSuccessDialog: false,
         select: '',
         items: [ ],
         services:[{}],
         branch:[ ],
         selectedService: " ",
         Error: '',
+        valid: false,
+        errorMessage: '',
+        error: true,
+        req: false,
 //      
         menu2: false,
         menu1: false,
-        time: '',
-        date: '',
+        fname: '',
+        fnameErr: false,
+        fnameErrMsg: '',
+        lname: '',
+        lnameErr: false,
+        lnameErrMsg: '',
+        email: '',
+        emailErr: false,
+        emailErrMsg: '',
+        contact: '',
+        contactErr: false,
+        contactErrMsg: '',
+        branches_id: '',
+        branches_idErr: false,
+        branches_idMsg: '',
+        doctors_id: '',
+        doctors_idErr: false,
+        doctors_idMsg: '',
+        services_id: '',
+        services_idErr: false,
+        services_idMsg: '',
+        date :'',
+        dateErr: false,
+        dateMsg: '',
+        time:    '',
+        timeErr: false,
+        timeMsg: '',
         doctors: [],
         bookingdata: {
-            fname: ' ',
-            lname: ' ',
-            email: ' ',
-            contact: ' ',
-            branches_id: ' ',
-            doctors_id: ' ',
-            services_id: ' ',
-            date :' ',
-            time:    ' ',
-         },
-         rules: {
-           required: value => !!value || 'Required.',
-         }    
+        },
+        rules: {
+            required: value => !!value || 'Required.',
+        }
     }),
     created(){
         this.service();
         this.doctor();
         this.branches();
+        
     },
     methods: {
         booking(){
-            // this.bookingdata.fname        = this.fname;
-            // this.bookingdata.lname        = this.lname;
-            // this.bookingdata.email        = this.email;
-            // this.bookingdata.contact      = this.contact;
-            // this.bookingdata.branches_id  = this.clinicBranch;
-            // this.bookingdata.doctors_id   = this.doctors;
-            // this.bookingdata.services_id  = this.selectedServices;  
-            // this.bookingdata.date         = this.date;
-            // this.bookingdata.time         = this.time;   
-            
-            axios.post('http://localhost/Dentalthesis/public/api/BookAppointment',this.bookingdata).then((response) => {
+            this.$refs.form.validate()
+
+            axios.post('http://localhost/Dentalthesis/public/api/BookAppointment',{
+                fname: this.fname,
+                lname: this.lname,
+                email: this.email,
+                contact: this.contact,
+                branches_id: this.branches_id,
+                doctors_id: this.doctors_id,
+                services_id: this.services_id,
+                date : this.date,
+                time: this.tConvert(this.time),
+            }).then((response) => {
+                this.error = false;
                 console.log(response.data)
-                alert('Your Schedule request Sent! Wait for the Clinic SMS Confirmation..')
-                
+                if(response.data.response){
+                    this.$refs.form.reset()
+                    // alert(response.data.message)
+                    localStorage.setItem('appointmentSent', true);
+                    this.$store.dispatch('setAppointmentSent', true)
+                    this.$router.push('/verify-code')
+                }else{
+                    alert(response.data.message)
+                }
             }).catch(e => {
                 console.log(e.message)
             })
@@ -267,6 +260,15 @@ export default {
         branches() {
             axios.get ('http://localhost/Dentalthesis/public/api/Branches')
             .then((response) => { this.branch = response.data.data});
+        },
+        tConvert (time24) {
+            var ts = time24;
+            var H = +ts.substr(0, 2);
+            var h = (H % 12) || 12;
+            h = (h < 10)?(h):h;  // leading 0 at the left for 1 digit hours
+            var ampm = H < 12 ? " AM" : " PM";
+            ts = h + ts.substr(2, 3) + ampm;
+            return ts;
         }
     },
 }

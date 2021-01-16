@@ -1,7 +1,7 @@
 <template>
     <div>
       <v-card class="overflow-hidden">
-        <v-app-bar
+        <!-- <v-app-bar
           color="#6A76AB"
           dark
           shrink-on-scroll
@@ -9,6 +9,14 @@
           src="https://picsum.photos/1920/1080?random"
           fade-img-on-scroll
           scroll-target="#scrolling-techniques-3"
+        > -->
+        <v-app-bar
+          color="#6A76AB"
+          dark
+          shrink-on-scroll
+          prominent
+          src="procedures/logo.jpg"
+          fade-img-on-scroll
         >
           <template v-slot:img="{ props }">
             <v-img
@@ -21,7 +29,7 @@
           <template v-slot:extension>
             <v-tabs align-with-title>
               <v-tab router-link to = "/">Home</v-tab>
-              <v-tab >About Us</v-tab>
+              <v-tab>About Us</v-tab>
               <v-tab >Procedures</v-tab>
               <v-tab>Contact Us</v-tab>
               <v-tab>Book Schedules</v-tab>

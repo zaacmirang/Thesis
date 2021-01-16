@@ -1,12 +1,14 @@
 <template>
-  <v-container style="height:650px"> 
+  <v-container> 
     <h1>Procedures</h1>
     <v-layout row>
         <v-col 
-                cols="4"
+                cols="12"
+            md="4"
+            sm="6"
             >
             <v-card 
-                max-width="400"
+                max-width="600"
             >
                 <v-img
                     class="white--text align-end"
@@ -24,10 +26,12 @@
         </v-col>
 
         <v-col 
-            cols="4"
+            cols="12"
+            md="4"
+            sm="6"
         >
             <v-card 
-            max-width="400"
+            max-width="600"
             >
             <v-img
                 class="white--text align-end"
@@ -42,10 +46,12 @@
         </v-card>
         </v-col>
         <v-col 
-            cols="4"
+            cols="12"
+            md="4"
+            sm="6"
         >
             <v-card 
-                max-width="400"
+                max-width="600"
             >
                 <v-img
                 class="white--text align-end"
@@ -61,10 +67,12 @@
     </v-col>
 
     <v-col 
-        cols="4"
+        cols="12"
+        md="4"
+        sm="6"
     >
         <v-card 
-            max-width="400"
+            max-width="600"
         >
             <v-img
                 class="white--text align-end"
@@ -79,10 +87,12 @@
         </v-card>
     </v-col>
     <v-col 
-        cols="4"
+       cols="12"
+        md="4"
+        sm="6"
     >
         <v-card 
-            max-width="400"
+            max-width="600"
         >
             <v-img
                 class="white--text align-end"
@@ -97,10 +107,12 @@
         </v-card>
     </v-col>
     <v-col 
-            cols="4"
+            cols="12"
+            md="4"
+            sm="6"
         >
         <v-card 
-            max-width="400"
+            max-width="600"
         >
             <v-img
                 class="white--text align-end"

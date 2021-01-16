@@ -1,6 +1,7 @@
 <template>
-    <v-container style="height: 300px">
+    <v-container>
         <h1>Contact Us</h1>
+        <v-img src="procedures/banner.jpg"></v-img>
     </v-container>
 </template>
 
