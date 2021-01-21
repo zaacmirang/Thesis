@@ -1,6 +1,5 @@
 <template>
 <div>
-        
                 <v-row class="d-flex justify-space-between mt-4">
                         <div class="ml-4 title">{{userInfo.fname}}</div>
                         <v-dialog
@@ -18,13 +17,13 @@
                         color="green"
                         v-bind="attrs"
                         v-on="on"
-                        >Create Account</v-btn>
+                        >Create User</v-btn>
                 </template>
                         <v-form ref="form"
                         v-model="valid"
                         lazy-validation>
                         <v-card>
-                                <v-card-title><span class="headline">Registration Form</span></v-card-title>
+                                <v-card-title><span class="headline">Create User</span></v-card-title>
                                 <v-card-text>
                                 <v-container>
                                         <v-row>
@@ -1051,6 +1050,12 @@
                                                         @click="getPatientInfo(item)"
                                                         small
                                                         >View</v-btn>
+                                                        <v-btn 
+                                                        color="primary" 
+                                                        @click="sendE()"
+                                                        small
+                                                        class="ml-1"
+                                                        >Send Receipt</v-btn>
                                                 </template>
                                                 </v-data-table>
                                         </v-card-text>
@@ -1125,137 +1130,274 @@
         >
                 <v-card>
                         <v-card-text class="px-8 py-4">
+                        
+                        <div class="d-flex justify-space-between mt-2 mb-4">
+                                <div class="title font-weight-bold align-self-end">Patient Information</div>
+                                <v-btn elevation="2" outlined color="green" @click="viewDentalHistory">Dental Tracker</v-btn>
+                        </div>
                         <v-row no-gutters>
-                                <v-col cols="4" class="font-weight-medium py-1">Name: </v-col>
-                                <v-col cols="8">{{patientInfo.First_name}} {{patientInfo.Last_name}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">Nickname: </v-col>
-                                <v-col cols="8" >{{patientInfo.Nickname}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">Address: </v-col>
-                                <v-col cols="8">{{patientInfo.Address}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">Sex: </v-col>
-                                <v-col cols="8">{{patientInfo.Sex}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">Nationality: </v-col>
-                                <v-col cols="8">{{patientInfo.Nationality}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">Company/School: </v-col>
-                                <v-col cols="8">{{patientInfo.Company_School}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">Status: </v-col>
-                                <v-col cols="8">{{patientInfo.Status}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">Parent Name: </v-col>
-                                <v-col cols="8">{{patientInfo.ParentName}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">Parent Occupation: </v-col>
-                                <v-col cols="8">{{patientInfo.Occupation}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">Doctor Name: </v-col>
-                                <v-col cols="8">{{patientInfo.Doctor_Name}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">Specialty: </v-col>
-                                <v-col cols="8">{{patientInfo.Specialty}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">Office Address: </v-col>
-                                <v-col cols="8">{{patientInfo.Office_Address}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">Office Number: </v-col>
-                                <v-col cols="8">{{patientInfo.Office_Number}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">1. Have you been a patient in Hospital for last 2 years?: </v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.q1 === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">2.  Have you been under the care of a physician during the past 2 yrs? </v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.q2 === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1"> - If so, what is the illnest being treated?</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.sq2}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">3.   Have you ever had serious illness or surgical operation?</v-col>
-                                <v-col cols="8" class="align-self-center ">{{patientInfo.q3 === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1"> - if so what illness or operation?</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.sq3}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">4.    Have you ever been hospitalized? </v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.q4 === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1"> - if so when and why?</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.sq4}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">5.    Are you taking any kind of medicine during the past year? </v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.q5 === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1"> - if so, please specify..</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.sq5}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">6.  Have you ever had excessive bleeding requiring special treatment?</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.q6 === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">7.  Do you use alcohol, cocaine or other dangerous drugs?</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.q6 === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">9.  Bleeding Time:</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.q9}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">11.  Blood type :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.q11}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">12.  Blood Pressure :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.q12}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is high blood pressure :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_high_blood_pressure === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is Low blood pressure :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_Low_blood_pressure === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is epilepsy :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_epilepsy === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is aid hiv infection :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_aid_hiv_infection === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is std :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_std === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is fainting seizure :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_fainting_seizure === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is rapid weight loss :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_rapid_weight_loss === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is radiation therapht :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_radiation_therapht === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is joint replacement implant :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_joint_replacement_implant === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is hear surgery :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_heart_surgery === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is heart attack :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_heart_attack === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is thyroid problem :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_thyroid_problem === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is heart desease :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_heart_desease === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is heart murmur :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_heart_murmur === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is hepatitis liver disease :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_hepatitis_liver_disease === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is rheumatic fever :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_rheumatic_fever === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is allergies :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_allergies === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is respiratoryproblems :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_respiratory_problems === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is hepatitis jaundice :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_hepatitis_jaundice === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is tuberculosis :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_tuberculosis === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is swollen ankles :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_swollen_ankles === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is kidney disease :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_kidney_disease === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is diabetes :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_diabetes === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is chest pain :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_chest_pain === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is stroke :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_stroke === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is cancer tumors :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_cancer_tumors === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is anemia :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_anemia === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is angina :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_angina === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is asthma :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_asthma === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is emphysema :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_emphysema === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is bleeding problems :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_bleeding_problems === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is blood disease :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_blood_disease === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is head injuries :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_head_injuries === 1 ? 'Yes' : 'No'}}</v-col>
-                                <v-col cols="4" class="font-weight-medium py-1">is arthristis rheumatism :</v-col>
-                                <v-col cols="8" class="align-self-center">{{patientInfo.is_arthristis_rheumatism === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none;">Name: </v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa;">{{patientInfo.First_name}} {{patientInfo.Last_name}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none;">Nickname: </v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Nickname}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none;">Address: </v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Address}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">Sex: </v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Sex}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">Nationality: </v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Nationality}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">Company/School: </v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Company_School}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">Status: </v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Status}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">Parent Name: </v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Name}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">Parent Occupation: </v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Occupation}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">Doctor Name: </v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Doctor_Name}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">Specialty: </v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Specialty}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">Office Address: </v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Office_Address}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">Office Number: </v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Office_Number}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">1. Have you been a patient in Hospital for last 2 years?: </v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Question_1 === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">2.  Have you been under the care of a physician during the past 2 yrs? </v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Question_2 === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none"> - If so, what is the illnest being treated?</v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Sub_Question_2}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">3.   Have you ever had serious illness or surgical operation?</v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Question_3 === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none"> - if so what illness or operation?</v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Sub_Question_3}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">4.    Have you ever been hospitalized? </v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Question_4 === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none"> - if so when and why?</v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Sub_Question_4}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">5.    Are you taking any kind of medicine during the past year? </v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Question_5 === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none"> - if so, please specify..</v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Sub_Question_5}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">6.  Have you ever had excessive bleeding requiring special treatment?</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Question_6 === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">7.  Do you use alcohol, cocaine or other dangerous drugs?</v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Question_7 === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">9.  Bleeding Time:</v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Question_9}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">11.  Blood type :</v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Question_11}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">12.  Blood Pressure :</v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Question_12}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is high blood pressure :</v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.High_Blood_Pressure === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is Low blood pressure :</v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Low_Blood_Pressure === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is epilepsy :</v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Epilepsy === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is aid hiv infection :</v-col>
+                                <v-col cols="8" class=" pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.AIDS_HIV_infection === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is std :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Sexually_Transmitted_Disease === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is fainting seizure :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Fainting_Seizure === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is rapid weight loss :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Rapid_Weight_Loss === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is radiation therapht :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Radiation_Theraphy === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is joint replacement implant :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Joint_Replacement_Implant === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is hear surgery :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Heart_Surgery === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is heart attack :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Heart_Attack === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is thyroid problem :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Thyroid_Problem === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is heart desease :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Heart_Disease === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is heart murmur :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Heart_Murmur === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is hepatitis liver disease :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Hepatitis_Liver_Disease === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is rheumatic fever :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Rheumatic_Fever === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is allergies :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Allergies === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is respiratoryproblems :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Respiratory_Problems === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is hepatitis jaundice :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Hepatitis_Jaundice === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is tuberculosis :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Tuberculosis === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is swollen ankles :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Swollen_Ankles === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is kidney disease :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Kidney_Disease === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is diabetes :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Diabetes === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is chest pain :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Chest_pain === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is stroke :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Stroke === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is cancer tumors :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Cancer_Tumors === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is anemia :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Anemia === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is angina :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Angina === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is asthma :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Asthma === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is emphysema :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Emphysema === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is bleeding problems :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Bleeding_Problems === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is blood disease :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Blood_Disease === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is head injuries :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Head_Injuries === 1 ? 'Yes' : 'No'}}</v-col>
+                                <v-col cols="4" class="font-weight-medium pa-1" style="border: 2px solid #aaa; border-right:none; border-top:none">is arthristis rheumatism :</v-col>
+                                <v-col cols="8" class="pa-1" style="border: 2px solid #aaa; border-top:none;">{{patientInfo.Arthritis_Rheumatism === 1 ? 'Yes' : 'No'}}</v-col>
                         </v-row>
                         </v-card-text>
                 </v-card>
         </v-dialog>
 
-                
-        </div>    
+        <v-dialog v-model="dentalHistoryDialog" width="80%">
+                <v-card>
+                        <v-card-text>
+                                <div class="title pa-4 font-weight-bold">Dental Tracker</div>
+                                <v-row no-gutters>
+                                        <v-col cols="2" style="border: 2px solid #aaa;" class="pa-2">
+                                                Date
+                                        </v-col>
+                                        <v-col cols="2" style="border: 2px solid #aaa; border-left: none; border-right: none;" class="pa-2">
+                                                Tooth
+                                        </v-col>
+                                        <v-col cols="4" style="border: 2px solid #aaa;" class="pa-2">
+                                                Procedure
+                                        </v-col>
+                                        <v-col cols="1" style="border: 2px solid #aaa; border-left: none;" class="pa-2">
+                                                Amount
+                                        </v-col>
+                                        <v-col cols="2" style="border: 2px solid #aaa; border-left: none;" class="pa-2">
+                                                Paid
+                                        </v-col>
+                                        <v-col cols="1" style="border: 2px solid #aaa; border-left: none;" class="pa-2">
+                                                Balance
+                                        </v-col>
+                                </v-row>
+                                <v-row no-gutters v-for="(record, index) in patientDentalRecords" :key="index">
+                                        <v-col cols="2" style="border: 2px solid #aaa; border-top: none;" class="pa-2">
+                                                {{ formatDate(record.created_at) }}
+                                        </v-col>
+                                        <v-col cols="2" style="border: 2px solid #aaa; border-left: none; border-right: none; border-top: none;" class="pa-2">
+                                                {{ record.Teeth }}
+                                        </v-col>
+                                        <v-col cols="4" style="border: 2px solid #aaa; border-top: none;" class="pa-2">
+                                                {{ record.Procedure }}
+                                        </v-col>
+                                        <v-col cols="1" style="border: 2px solid #aaa; border-left: none; border-top: none;" class="pa-2">
+                                               {{ record.Amount }}
+                                        </v-col>
+                                        <v-col cols="2" style="border: 2px solid #aaa; border-left: none; border-top: none;" class="pa-2">
+                                                {{ record.Paid }}
+                                        </v-col>
+                                        <v-col cols="1" style="border: 2px solid #aaa; border-left: none; border-top: none;" class="pa-2">
+                                                {{ record.Balance }}
+                                        </v-col>
+                                </v-row>
+                                <v-row no-gutters>
+                                        <v-col cols="2" style="border: 2px solid #aaa; border-top: none;" class="pa-2 d-flex align-center">
+                                                {{ formatDate(new Date()) }}
+                                        </v-col>
+                                        <v-col cols="2" style="border: 2px solid #aaa; border-left: none; border-right: none; border-top: none;" class="pa-2">
+                                                <v-select   
+                                                v-model="dt_tooth"
+                                                :items="dt_tooths"
+                                                label= "Tooth"
+                                                item-text = "name"
+                                                return-object
+                                                dense
+                                                outlined
+                                                hide-details=""
+                                                >
+                                                </v-select>
+                                        </v-col>
+                                        <v-col cols="4" style="border: 2px solid #aaa; border-top: none;" class="pa-2">
+                                                <v-select   
+                                                v-model="dt_service"
+                                                :items="dt_services"
+                                                label= "Procedures"
+                                                item-text = "name"
+                                                return-object
+                                                dense
+                                                outlined
+                                                hide-details=""
+                                                >
+                                                </v-select>
+                                        </v-col>
+                                        <v-col cols="1" style="border: 2px solid #aaa; border-left: none; border-top: none;" class="pa-2 d-flex align-center" >
+                                                {{ dt_service.price }}
+                                        </v-col>
+                                        <v-col cols="2" style="border: 2px solid #aaa; border-left: none; border-top: none;" class="pa-2">
+                                                <v-text-field
+                                                outlined
+                                                dense
+                                                hide-details
+                                                v-model="dt_paid"
+                                                ></v-text-field>
+                                        </v-col>
+                                        <v-col cols="1" style="border: 2px solid #aaa; border-left: none; border-top: none;" class="pa-2 d-flex align-center" >
+                                                
+                                        </v-col>
+                                </v-row>
+                                <div class="d-flex justify-end mt-2">
+                                        <v-btn elevation="2" outlined color="green" width="100" @click="newDentalRecord">save</v-btn>
+                                        <v-btn elevation="2" outlined color="red" width="100" class="ml-2" @click="closeDT">close</v-btn>
+                                </div>
+                        </v-card-text>
+                </v-card>
+        </v-dialog>
 
+        <v-dialog v-model="sendEmailDialog" width="400">
+                <v-card>
+                        <v-card-text class="pa-4">
+                                <div class="font-weight-bold title pb-2">Send Receipt</div>
+                                <v-text-field
+                                outlined
+                                dense
+                                hide-details
+                                v-model="sendE_email"
+                                label="Email"
+                                ></v-text-field>
+                                <v-select   
+                                v-model="sendE_service"
+                                :items="dt_services"
+                                label= "Procedures"
+                                item-text = "name"
+                                return-object
+                                dense
+                                outlined
+                                hide-details=""
+                                class="my-2"
+                                >
+                                </v-select>
+                                <v-text-field
+                                label="price"
+                                outlined
+                                dense
+                                hide-details
+                                v-model="sendE_service.price"
+                                disabled
+                                class="mb-2"
+                                ></v-text-field>
+                                <v-btn block color="green" outlined @click="sendReceipt()">Send</v-btn>
+                        </v-card-text>
+                </v-card>
+        </v-dialog>
+
+</div>    
 </template>
 <script>
 import moment from 'moment'
@@ -1263,6 +1405,18 @@ import axios from "axios"
 export default {
 data(){
         return {
+        sendEmailDialog: false,
+        sendE_service:'',
+        sendE_rates: '',
+        sendE_email: '',
+        patientDentalRecords: '',
+        dt_service: '',
+        dt_services: '',
+        dt_date: '',
+        dt_date_d: false,
+        dt_amount:'',
+        dt_paid: '',
+        dentalHistoryDialog: false,
         dialog: false,
         tab: 1,
         dialog2: false,
@@ -1411,6 +1565,109 @@ data(){
         patientInfo:'',
         patients:[],
         schedules:[],
+        dt_tooth: {},
+        dt_tooths: [
+                {
+                        id: 1,
+                        name: '11'
+                },
+                {
+                        id: 2,
+                        name: '12'
+                },
+                {
+                        id: 3,
+                        name: '13'
+                },
+                {
+                        id: 4,
+                        name: '14'
+                },
+                {
+                        id: 5,
+                        name: '15'
+                },
+                {
+                        id: 6,
+                        name: '16'
+                },
+                {
+                        id: 7,
+                        name: '17'
+                },
+                {
+                        id: 8,
+                        name: '18'
+                },
+                {
+                        id: 9,
+                        name: '21'
+                },
+                {
+                        id: 10,
+                        name: '22'
+                },
+                {
+                        id: 11,
+                        name: '23'
+                },
+                {
+                        id: 12,
+                        name: '24'
+                },
+                {
+                        id: 13,
+                        name: '25'
+                },
+                {
+                        id: 14,
+                        name: '26'
+                },
+                {
+                        id: 15,
+                        name: '27'
+                },
+                {
+                        id: 16,
+                        name: '28'
+                },
+                {
+                        id: 17,
+                        name: '31'
+                },
+                {
+                        id: 18,
+                        name: '32'
+                },
+                {
+                        id: 19,
+                        name: '33'
+                },
+                {
+                        id: 20,
+                        name: '34'
+                },
+                {
+                        id: 21,
+                        name: '35'
+                },
+                {
+                        id: 22,
+                        name: '36'
+                },
+                {
+                        id: 23,
+                        name: '37'
+                },
+                {
+                        id: 24,
+                        name: '38'
+                },
+                {
+                        id: 25,
+                        name: '41'
+                },
+        ],
         // calendar
                 focus: '',
                 type: 'month',
@@ -1441,6 +1698,9 @@ mounted() {
         this.getAppointments();
         this.getPatients();
         this.userInfo =JSON.parse(localStorage.getItem('user'));
+        
+        this.showDentalRecord()
+        this.service()
 }       
 ,methods: {
         postaddaccount (){
@@ -1695,17 +1955,18 @@ mounted() {
                         })
                 },
                 approveAppointments(item){
-                        axios.post(`http://localhost/Dentalthesis/public/api/update/${item.id}`,{},{
-                                headers: { Authorization: `Bearer ${this.token}` }
-                        })
-                        .then((response) => {
-                                // console.log(response)
-                                if(response.data.response === true){
-                                        this.getAppointments();
-                                        this.getBooked();
-                                        alert(response.data.message)
-                                }
-                        })
+                        console.log(item)
+                        // axios.post(`http://localhost/Dentalthesis/public/api/update/${item.id}`,{},{
+                        //         headers: { Authorization: `Bearer ${this.token}` }
+                        // })
+                        // .then((response) => {
+                        //         console.log(response)
+                        //         if(response.data.response === true){
+                        //                 this.getAppointments();
+                        //                 this.getBooked();
+                        //                 alert(response.data.message)
+                        //         }
+                        // })
                 },
                 declineAppointment(item){
                         axios.post(`http://localhost/Dentalthesis/public/api/cancel/${item.id}`,{},{
@@ -1733,7 +1994,7 @@ mounted() {
                         axios.get('http://localhost/Dentalthesis/public/api/Patient',{
                                 headers: { Authorization: `Bearer ${this.token}` }
                         }).then(res => {
-                                console.log(res)
+                                // console.log(res)
                                 this.patients = res.data;
                         }).catch(err => {
                                 console.log(err)
@@ -1746,6 +2007,15 @@ mounted() {
                                 // console.log(res)
                                 this.schedules = res.data.data;
                                 this.updateRange();
+                        }).catch(err => {
+                                console.log(err)
+                        })  
+                },
+                showDentalRecord(){
+                        axios.get(`http://localhost/Dentalthesis/public/api/Patient/${10}/dentalrecord`,{
+                                headers: { Authorization: `Bearer ${this.token}` }
+                        }).then(res => {
+                                console.log(res)
                         }).catch(err => {
                                 console.log(err)
                         })  
@@ -1828,12 +2098,82 @@ mounted() {
                                 headers: { Authorization: `Bearer ${this.token}` }
                         }).then(res => {
                                 this.patientDialog = true;
-                                console.log(res)
+                                // console.log(res)
                                 this.patientInfo = res.data[0]
                         }).catch(err => {
                                 console.log(err)
                         })  
+                },
+                viewDentalHistory(){
+                        console.log('dental history')
+                        this.dentalHistoryDialog = true;
+                        this.getPatientDentalRecords();
+                },
+                service() {
+                        axios.get ('http://localhost/Dentalthesis/public/api/Services')
+                        .then((response) => { this.dt_services = response.data.data});
+                },
+                closeDT(){
+                        this.dentalHistoryDialog = false;
+                        this.dt_date = '';
+                        this.dt_tooth = '';
+                        this.dt_service = '';
+                        this.dt_amount = '';
+                        this.dt_paid = '';
+                },
+                newDentalRecord(){
+                        axios.post(`http://localhost/Dentalthesis/public/api/Patient/${this.patientInfo.id}/newrecord`,{
+                                teeths_id: this.dt_tooth.id,
+                                services_id: this.dt_service.id,
+                                paid: this.dt_paid
+                        },{
+                                headers: { Authorization: `Bearer ${this.token}` }
+                        }).then((response) => {
+                                console.log(response)
+                                this.dt_date = '';
+                                this.dt_tooth = '';
+                                this.dt_service = '';
+                                this.dt_amount = '';
+                                this.dt_paid = '';
+                                this.getPatientDentalRecords();
+                        }).catch(err=>{
+                                console.log(err)
+                                alert(err.message)
+                        })
+                        
+                },
+                formatDate(date){
+                        return moment(date).format('MMMM DD YYYY')
+                },
+                getPatientDentalRecords(){
+                        axios.get(`http://localhost/Dentalthesis/public/api/Patient/${this.patientInfo.id}/dentalrecord`,{
+                                headers: { Authorization: `Bearer ${this.token}` }
+                        }).then(res => {
+                                this.patientDentalRecords = res.data;
+                        }).catch(err => {
+                                console.log(err)
+                        })  
+                },
+                sendReceipt(){
+                        axios.post(`http://localhost/Dentalthesis/public/api/email`,{
+                                email: this.sendE_email,
+                                service: this.sendE_service.name,
+                                rate: this.sendE_service.price
+                        },{
+                                headers: { Authorization: `Bearer ${this.token}` }
+                        }).then((response) => {
+                                console.log(response)
+                                this.sendE_email = ''
+                                this.sendE_service = {}
+                        }).catch(err=>{
+                                console.log(err)
+                                alert(err.message)
+                        })
+                },
+                sendE(){
+                        this.sendEmailDialog = true;
                 }
+                
         }
         
         
@@ -1841,6 +2181,5 @@ mounted() {
 
 
 </script>
-<style lang="stylus" scoped>
-
+<style scoped>
 </style>

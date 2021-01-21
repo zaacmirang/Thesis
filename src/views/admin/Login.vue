@@ -22,6 +22,7 @@
             v-model="password"
             type="password"
             :rules="[rules.required]"
+            @keyup.enter="login"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -30,6 +31,7 @@
           outlined
           color="green"
           @click="login" 
+          @keyup.enter="login"
       >
       Sign In
       </v-btn>

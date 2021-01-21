@@ -93,12 +93,15 @@
             readonly
             v-on="on"
             :rules="[rules.required]"
+            
         ></v-text-field>
         </template>
         <v-date-picker
         v-model="date"
         no-title
         @input="menu1 = false"
+        :min="new Date().toISOString().slice(0,10)"
+        :max="getEndDate()"
         ></v-date-picker>
     </v-menu>
 
@@ -128,8 +131,16 @@
         v-model="time"
         full-width
         @click:minute="$refs.menu.save(time)"
+        min="8:00"
+        max="17:00"
         ></v-time-picker>
     </v-menu>
+        <v-checkbox
+            v-model="termsAndConditions"
+            :error="termsAndConditionsError"
+            label="I am fully aware that cancellation of appointment must be done through calls or email."
+        ></v-checkbox>
+        <div class="body-1 font-weight-bold mb-2">NOTICE: Doc Razel Dental Studio will contact you and offer another schedule if your preferred date or time is already occupied.</div>
         <v-btn
             elevation="2"
             outlined
@@ -160,6 +171,8 @@ import axios from "axios"
 
 export default {
     data:() => ({
+        termsAndConditions: false,
+        termsAndConditionsError: false,
         bookingSuccessDialog: false,
         select: '',
         items: [ ],
@@ -206,48 +219,60 @@ export default {
         },
         rules: {
             required: value => !!value || 'Required.',
-        }
+        },
+        nowDate: new Date()
     }),
     created(){
         this.service();
         this.doctor();
         this.branches();
-        
+        console.log(this.getEndDate())
+    },
+    watch:{
+        termsAndConditions: function(){
+            if(this.termsAndConditions){
+                this.termsAndConditionsError = false;
+            }
+        },
+        termsAndConditions2: function(){
+            if(this.termsAndConditions2){
+                this.termsAndConditionsError2 = false;
+            }
+        }
     },
     methods: {
         booking(){
-            this.$refs.form.validate()
-
-            axios.post('http://localhost/Dentalthesis/public/api/BookAppointment',{
-                fname: this.fname,
-                lname: this.lname,
-                email: this.email,
-                contact: this.contact,
-                branches_id: this.branches_id,
-                doctors_id: this.doctors_id,
-                services_id: this.services_id,
-                date : this.date,
-                time: this.tConvert(this.time),
-            }).then((response) => {
-                this.error = false;
-                console.log(response.data)
-                if(response.data.response){
-                    this.$refs.form.reset()
-                    // alert(response.data.message)
-                    localStorage.setItem('appointmentSent', true);
-                    this.$store.dispatch('setAppointmentSent', true)
-                    this.$router.push('/verify-code')
-                }else{
-                    alert(response.data.message)
-                }
-            }).catch(e => {
-                console.log(e.message)
-            })
+            if(this.termsAndConditions){
+                this.$refs.form.validate()
+                axios.post('http://localhost/Dentalthesis/public/api/BookAppointment',{
+                    fname: this.fname,
+                    lname: this.lname,
+                    email: this.email,
+                    contact: this.contact,
+                    branches_id: this.branches_id,
+                    doctors_id: this.doctors_id,
+                    services_id: this.services_id,
+                    date : this.date,
+                    time: this.tConvert(this.time),
+                }).then((response) => {
+                    this.error = false;
+                    console.log(response.data)
+                    if(response.data.response){
+                        this.$refs.form.reset()
+                        // alert(response.data.message)
+                        localStorage.setItem('appointmentSent', true);
+                        this.$store.dispatch('setAppointmentSent', true)
+                        this.$router.push('/verify-code')
+                    }else{
+                        alert(response.data.message)
+                    }
+                }).catch(e => {
+                    console.log(e.message)
+                })
+            }else{
+                this.termsAndConditionsError = true;
+            }
         },
-            //     ,postsubmit(){
-            //       axios.post('http://localhost/Dentalthesis/public/api/BookAppointment', this.bookingdata)
-            //     .then(response => {console.log(response)})     
-            // }
 
         service() {
             axios.get ('http://localhost/Dentalthesis/public/api/Services')
@@ -269,6 +294,10 @@ export default {
             var ampm = H < 12 ? " AM" : " PM";
             ts = h + ts.substr(2, 3) + ampm;
             return ts;
+        },
+        getEndDate() {
+            var endDate = new Date(this.nowDate.getFullYear(),this.nowDate.getMonth() + 1, 10);
+            return endDate.toISOString().slice(0,10)
         }
     },
 }
