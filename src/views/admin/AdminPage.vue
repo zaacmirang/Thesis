@@ -377,7 +377,7 @@
                                         <v-col cols="12">
                                         <v-text-field
                                                 v-model="pxrelation"
-                                                label="Ralation"
+                                                label="Relation"
                                                 value="px relation"
                                                 
                                         ></v-text-field>
@@ -1785,18 +1785,18 @@ mounted() {
                                 q5: this.radioGroup5,
                                 q6: this.radioGroup6,
                                 q7: this.radioGroup7,
-                                pxfname: this.pxfname,
-                                pxlname: this.pxlname,
-                                pxmname: this.pxmname,
+                                fname: this.pxfname,
+                                lname: this.pxlname,
+                                mname: this.pxmname,
                                 nickname: this.nickname,
-                                pxage: this.pxage,
-                                pxnationality: this.pxnationality,
-                                pxcontact: this.pxcontact,
-                                pxstatus: this.pxstatus,
-                                pxadd: this.pxadd,
+                                age: this.pxage,
+                                nationality: this.pxnationality,
+                                cellphone: this.pxcontact,
+                                status: this.pxstatus,
+                                address: this.pxadd,
                                 parent_fname: this.pxguardname,
                                 parent_lname: this.pxguardname, 
-                                pxrelation: this.pxrelation,
+                                relation: this.pxrelation,
                                 patient_occupation: this.patient_occupation,
                                 parent_occupation: this.parent_occupation,
                                 sex: this.sex,
@@ -2174,10 +2174,15 @@ mounted() {
                         this.sendEmailDialog = true;
                 }
                 
-        }
         
         
+        
+        },
+        created() {
+                axios.defaults.headers.common['Authorization'] = 'Bearer: ' + this.token;
         }
+}
+    
 
 
 </script>
