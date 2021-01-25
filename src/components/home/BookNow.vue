@@ -244,7 +244,7 @@ export default {
         booking(){
             if(this.termsAndConditions){
                 this.$refs.form.validate()
-                axios.post('http://34.121.35.37/api/BookAppointment',{
+                axios.post('http://34.122.188.38/api/BookAppointment',{
                     fname: this.fname,
                     lname: this.lname,
                     email: this.email,
@@ -275,15 +275,15 @@ export default {
         },
 
         service() {
-            axios.get ('http://34.121.35.37/api/Services')
+            axios.get ('http://34.122.188.38/api/Services')
             .then((response) => { this.services = response.data.data});
         },
         doctor() {
-            axios.get ('http://34.121.35.37/api/Doctors')
+            axios.get ('http://34.122.188.38/api/Doctors')
             .then((response) => {this.doctors = response.data.data});
         },
         branches() {
-            axios.get ('http://34.121.35.37/api/Branches')
+            axios.get ('http://34.122.188.38/api/Branches')
             .then((response) => { this.branch = response.data.data});
         },
         tConvert (time24) {

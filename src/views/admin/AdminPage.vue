@@ -1732,7 +1732,7 @@ mounted() {
                 }else if( this.accpass !== this.accconpass){
                         alert('password does not match.')
                 }else{
-                        axios.post('http://34.121.35.37/api/registerUser', data,{
+                        axios.post('http://34.122.188.38/api/registerUser', data,{
                                 headers: { Authorization: `Bearer ${this.token}` }
                         })
                         .then(res => {
@@ -1775,7 +1775,7 @@ mounted() {
                 ){
                         alert('Please fill up required fields.')
                 }else{
-                        axios.post('http://34.121.35.37/api/Addpatient', {
+                        axios.post('http://34.122.188.38/api/Addpatient', {
                                 doc_name: this.pxphysician,
                                 office_address: this.office_address,
                                 q1: this.radioGroup1,
@@ -1947,7 +1947,7 @@ mounted() {
 
                 //get record
                 ,getpatientrecord () {
-                        axios.get('http://34.121.35.37/api/BookAppointment',this.bookingdata,{
+                        axios.get('http://34.122.188.38/api/BookAppointment',this.bookingdata,{
                                 headers: { Authorization: `Bearer ${this.token}` }
                         })
                         .then((response) => {
@@ -1956,7 +1956,7 @@ mounted() {
                 },
                 approveAppointments(item){
                         console.log(item)
-                        axios.post(`http://34.121.35.37/api/update/${item.id}`,{},{
+                        axios.post(`http://34.122.188.38/api/update/${item.id}`,{},{
                                 headers: { Authorization: `Bearer ${this.token}` }
                         })
                         .then((response) => {
@@ -1969,7 +1969,7 @@ mounted() {
                         })
                 },
                 declineAppointment(item){
-                        axios.post(`http://34.121.35.37/api/cancel/${item.id}`,{},{
+                        axios.post(`http://34.122.188.38/api/cancel/${item.id}`,{},{
                                 headers: { Authorization: `Bearer ${this.token}` }
                         })
                         .then((response) => {
@@ -1981,7 +1981,7 @@ mounted() {
                         })
                 },
                 getAppointments(){
-                        axios.get('http://34.121.35.37/api/Appointments',{
+                        axios.get('http://34.122.188.38/api/Appointments',{
                                 headers: { Authorization: `Bearer ${this.token}` }
                         }).then(res => {
                                 this.appointments = res.data.data;
@@ -1991,7 +1991,7 @@ mounted() {
                         })
                 },
                 getPatients(){
-                        axios.get('http://34.121.35.37/api/Patient',{
+                        axios.get('http://34.122.188.38/api/Patient',{
                                 headers: { Authorization: `Bearer ${this.token}` }
                         }).then(res => {
                                 // console.log(res)
@@ -2001,7 +2001,7 @@ mounted() {
                         })
                 },
                 getBooked(){
-                        axios.get('http://34.121.35.37/api/Booked',{
+                        axios.get('http://34.122.188.38/api/Booked',{
                                 headers: { Authorization: `Bearer ${this.token}` }
                         }).then(res => {
                                 // console.log(res)
@@ -2012,7 +2012,7 @@ mounted() {
                         })  
                 },
                 showDentalRecord(){
-                        axios.get(`http://34.121.35.37/api/Patient/${10}/dentalrecord`,{
+                        axios.get(`http://34.122.188.38/api/Patient/${10}/dentalrecord`,{
                                 headers: { Authorization: `Bearer ${this.token}` }
                         }).then(res => {
                                 console.log(res)
@@ -2094,7 +2094,7 @@ mounted() {
                         this.$router.push('/admin')
                 },
                 getPatientInfo(patient){
-                        axios.get(`http://34.121.35.37/api/Patient/${patient.id}`,{
+                        axios.get(`http://34.122.188.38/api/Patient/${patient.id}`,{
                                 headers: { Authorization: `Bearer ${this.token}` }
                         }).then(res => {
                                 this.patientDialog = true;
@@ -2110,7 +2110,7 @@ mounted() {
                         this.getPatientDentalRecords();
                 },
                 service() {
-                        axios.get ('http://34.121.35.37/api/Services')
+                        axios.get ('http://34.122.188.38/api/Services')
                         .then((response) => { this.dt_services = response.data.data});
                 },
                 closeDT(){
@@ -2122,7 +2122,7 @@ mounted() {
                         this.dt_paid = '';
                 },
                 newDentalRecord(){
-                        axios.post(`http://34.121.35.37/api/Patient/${this.patientInfo.id}/newrecord`,{
+                        axios.post(`http://34.122.188.38/api/Patient/${this.patientInfo.id}/newrecord`,{
                                 teeths_id: this.dt_tooth.id,
                                 services_id: this.dt_service.id,
                                 paid: this.dt_paid
@@ -2146,7 +2146,7 @@ mounted() {
                         return moment(date).format('MMMM DD YYYY')
                 },
                 getPatientDentalRecords(){
-                        axios.get(`http://34.121.35.37/api/Patient/${this.patientInfo.id}/dentalrecord`,{
+                        axios.get(`http://34.122.188.38/api/Patient/${this.patientInfo.id}/dentalrecord`,{
                                 headers: { Authorization: `Bearer ${this.token}` }
                         }).then(res => {
                                 this.patientDentalRecords = res.data;
@@ -2155,7 +2155,7 @@ mounted() {
                         })  
                 },
                 sendReceipt(){
-                        axios.post(`http://34.121.35.37/api/email`,{
+                        axios.post(`http://34.122.188.38/api/email`,{
                                 email: this.sendE_email,
                                 service: this.sendE_service.name,
                                 rate: this.sendE_service.price
