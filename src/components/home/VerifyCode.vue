@@ -36,7 +36,7 @@ export default {
     verifyCode(){
       if(this.$refs.form.validate()){
         console.log('verify')
-        axios.get('http://localhost/Dentalthesis/public/api/BookAppointment',{
+        axios.get('http://34.122.188.38/api/BookAppointment',{
           params: {
             code: this.code
           }

@@ -54,7 +54,7 @@ export default {
     methods:{
       login(){
         if(this.$refs.form.validate()){
-          axios.post(`http://localhost/Dentalthesis/public/api/AdminLogin`, {
+          axios.post(`http://34.122.188.38/api/AdminLogin`, {
             email: this.email,
             password: this.password
           })
